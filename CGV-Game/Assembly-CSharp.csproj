@@ -55,11 +55,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\MoveFloat.cs" />
+     <Compile Include="Assets\PlatformsController.cs" />
+     <Compile Include="Assets\Scrips\MoveBase.cs" />
      <Compile Include="Assets\Scrips\PickUpObjects.cs" />
      <Compile Include="Assets\Scrips\PickableObject.cs" />
      <Compile Include="Assets\Scrips\PlayerController.cs" />
      <Compile Include="Assets\Scrips\PushRigidBody.cs" />
      <Compile Include="Assets\Scrips\ThirdPersonCamera.cs" />
+     <None Include="Assets\3D Game Kit - Character Pack\Shaders\Alien.shader" />
+     <None Include="Assets\3D Game Kit - Character Pack\Shaders\EyeLash.shader" />
+     <None Include="Assets\3D Game Kit - Character Pack\Shaders\EyeBallsHD.shader" />
+     <None Include="Assets\3D Game Kit - Character Pack\Characters\Spitter\AnimationClips\animations.txt" />
+     <None Include="Assets\3D Game Kit - Character Pack\Shaders\EnergyCore.shader" />
+     <None Include="Assets\3D Game Kit - Character Pack\Shaders\SculptedHair.shader" />
+     <None Include="Assets\3D Game Kit - Character Pack\Shaders\ToonSkin.shader" />
+     <None Include="Assets\3D Game Kit - Character Pack\Shaders\Dissolve.shader" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.31f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

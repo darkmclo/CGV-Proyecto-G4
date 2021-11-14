@@ -22,22 +22,28 @@ public class PlayerController : MonoBehaviour
     public float slideVelocity;
     public float slopeForceDown;
 
+    //variables animaciones
+    public Animator playeranimatorcontroller;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GetComponent<CharacterController>();
+        playeranimatorcontroller = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //guardamos los valores de entrada vertical y horizontal
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
 
         playerInput = new Vector3(horizontalMove, 0, verticalMove);
         playerInput = Vector3.ClampMagnitude(playerInput, 1);
+        playeranimatorcontroller.SetFloat("PlayerWalkVelocity", playerInput.magnitude * playerSpeed);
 
-        camDirection();
+        camDirection(); //llama ala funcion de camDirection
         movePlayer = playerInput.x * camRight + playerInput.z * camForward;
         movePlayer = movePlayer * playerSpeed;
 
@@ -67,25 +73,32 @@ public class PlayerController : MonoBehaviour
     {
         if (player.isGrounded)
         {
+            //la velocidad de caida es igual ala gravedad en valor negativo * time.deltatime
             fallVelocity = -gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
         }
-        else
+        else //sino
         {
+            //aceleramos la caida cada frame  restandole el valor de la gravedad * time.deltatime.
             fallVelocity -= gravity * Time.deltaTime;
             movePlayer.y = fallVelocity;
+            playeranimatorcontroller.SetFloat("PlayerVelocity", player.velocity.y);
         }
 
-        SlideDown();
+
+        playeranimatorcontroller.SetBool("IsGrounded", player.isGrounded);
+        SlideDown();  // llamamos ala funcion Slidedown() para comprobar si estamos en una pendiente
     }
     
     //Habilidades para el jugador
      public void PlayerSkill()
     {
+        //si estamos tocando el suelo y pulsamos el boton de "jump"
         if (player.isGrounded && Input.GetButtonDown("Jump"))
         {
-            fallVelocity = jumpForce;
-            movePlayer.y = fallVelocity;
+            fallVelocity = jumpForce; //la velocidad de caida pasa a ser el igual a la velocidad de salto
+            movePlayer.y = fallVelocity; // pasamos el valor a moveplayer.y
+            playeranimatorcontroller.SetTrigger("PlayerJummp");
         }
     }
 
@@ -107,5 +120,10 @@ public class PlayerController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         hitNormal = hit.normal;
+    }
+
+    private void OnAnimatorMove()
+    {
+
     }
 }
